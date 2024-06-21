@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/AdmiralVladskovich/maw/tree/8a6929cf785a706c2bbcc82fc0f9115dfe1a0651
+    targetRevision: HEAD
+    path: Mongo-test/mong
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp
+
+
+  syncPolicy: 
+    syncOptions:
+    - CreateNamespace=true
+  
+  
+  automated:
+    selfHeal: true  # automated self healing  
+    prune: true  # delete old component
+
+
+
